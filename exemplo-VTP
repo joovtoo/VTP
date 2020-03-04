@@ -1,0 +1,62 @@
+SW-0
+
+en
+conf t
+vlan 10
+name CLIENTES
+vlan 20
+name SERVIDORES
+vlan 30
+name DMZ
+vlan 40
+name VENDAS
+vlan 50
+name DIRETORIA
+vlan 99
+name GERENCIAMENTO
+interface f0/24
+switchport mode trunk
+exit
+interface f0/1
+switchport mode access
+switchport access vlan 10
+exit
+vtp mode server
+vtp domain SENAI
+vtp password joaoabreu
+do wr
+
+SW-1
+
+en
+conf t
+vtp mode client
+vtp domain SENAI
+vtp password joaoabreu
+int f0/24
+switchport mode trunk
+exit
+int f0/23
+switchport mode trunk
+exit
+interface f0/1
+switchport mode access
+switchport access vlan 10
+exit
+do wr
+
+SW-2
+
+en 
+conf t
+vtp mode client
+vtp domain SENAI
+vtp password joaoabreu
+int f0/23
+switchport mode trunk
+exit
+interface f0/1
+switchport mode access
+switchport access vlan 10
+exit
+do wr
